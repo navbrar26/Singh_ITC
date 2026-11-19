@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter - Assignment #1</title>
+  <link rel="stylesheet" href="../global.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <nav>
+    <div class="nav-logo">HARSIMAR S. TOOR</div>
+
+    <ul class="nav-links" id="nav-links">
+      <li>
+        <a href="../index.html">Home</a>
+      </li>
+
+      <li>
+        <a href="../about/index.html">About</a>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="flex-center flex-column">
+    <div class="container">
+      <h1>Unit Converter</h1>
+
+      <div class="converter">
+        <label for="conversionType" style="color: #ff9800;">Choose Conversion Type:</label>
+        <select id="conversionType" onchange="toggleConverter()">
+          <option value="temperature">Temperature (Celsius to Fahrenheit)</option>
+          <option value="length">Length (Meters to Feet)</option>
+        </select>
+      </div>
+
+      <div id="temperatureConverter" class="converter">
+        <label for="temperatureInput" style="color: #fff;">Enter Celsius:</label>
+        <input type="number" id="temperatureInput" placeholder="Enter Celsius" oninput="convertTemperature()">
+        <div class="result" id="temperatureResult"></div>
+      </div>
+
+      <div id="lengthConverter" class="converter" style="display: none;">
+        <label for="lengthInput" style="color: #fff;">Enter Meters:</label>
+        <input type="number" id="lengthInput" placeholder="Enter Meters" oninput="convertLength()">
+        <div class="result" id="lengthResult"></div>
+      </div>
+
+      <button onclick="resetConverter()">Reset</button>
+
+      <div class="footer">
+        <p>Assignment #1 - Conversion</p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function toggleConverter() {
+      const conversionType = document.getElementById('conversionType').value;
+      if (conversionType === 'temperature') {
+        document.getElementById('temperatureConverter').style.display = 'block';
+        document.getElementById('lengthConverter').style.display = 'none';
+      } else {
+        document.getElementById('temperatureConverter').style.display = 'none';
+        document.getElementById('lengthConverter').style.display = 'block';
+      }
+    }
+
+    function convertTemperature() {
+      const celsius = document.getElementById('temperatureInput').value;
+      if (celsius === '') {
+        document.getElementById('temperatureResult').innerHTML = '';
+        return;
+      }
+      const fahrenheit = (celsius * 9 / 5) + 32;
+      document.getElementById('temperatureResult').innerHTML = `${celsius}°C = ${fahrenheit.toFixed(2)}°F`;
+    }
+
+    function convertLength() {
+      const meters = document.getElementById('lengthInput').value;
+      if (meters === '') {
+        document.getElementById('lengthResult').innerHTML = '';
+        return;
+      }
+      const feet = meters * 3.28084;
+      document.getElementById('lengthResult').innerHTML = `${meters} meters = ${feet.toFixed(2)} feet`;
+    }
+
+    function resetConverter() {
+      document.getElementById('temperatureInput').value = '';
+      document.getElementById('lengthInput').value = '';
+      document.getElementById('temperatureResult').innerHTML = '';
+      document.getElementById('lengthResult').innerHTML = '';
+    }
+
+    toggleConverter();
+  </script>
+
+</body>
+
+</html>

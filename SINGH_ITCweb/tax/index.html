@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Income Tax Calculator</title>
+  <link rel="stylesheet" href="../global.css">
+  <style>
+    .container {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 400px;
+      animation: fadeIn 1.5s ease-out, bounce 2s infinite ease-in-out alternate;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes bounce {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-10px);
+      }
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #4facfe;
+    }
+
+    label {
+      font-size: 1.1rem;
+      display: block;
+      margin: 15px 0 5px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background: #4facfe;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #00c2fe;
+      transform: scale(1.1);
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      color: #4facfe;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-logo">HARSIMAR S. TOOR</div>
+
+    <ul class="nav-links" id="nav-links">
+      <li>
+        <a href="../index.html">Home</a>
+      </li>
+
+      <li>
+        <a href="../about/index.html">About</a>
+      </li>
+    </ul>
+  </nav>
+
+  <main class="flex-center flex-column">
+
+    <div class="container">
+      <h1>Income Tax Calculator</h1>
+
+      <label for="income">Enter Annual Income (in PHP):</label>
+      <input type="number" id="income" placeholder="Enter your income...">
+
+      <label for="tax-rate">Select Tax Rate (%):</label>
+      <select id="tax-rate">
+        <option value="5">5%</option>
+        <option value="10">10%</option>
+        <option value="15">15%</option>
+        <option value="20">20%</option>
+        <option value="25">25%</option>
+      </select>
+
+      <button id="calculate-btn">Calculate Tax</button>
+
+      <div class="result" id="result"></div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('calculate-btn').addEventListener('click', () => {
+      const income = parseFloat(document.getElementById('income').value);
+      const taxRate = parseFloat(document.getElementById('tax-rate').value);
+      const resultElement = document.getElementById('result');
+
+      if (isNaN(income) || income <= 0) {
+        resultElement.textContent = 'Please enter a valid income amount!';
+        return;
+      }
+
+      const tax = (income * taxRate) / 100;
+      const netIncome = income - tax;
+
+      resultElement.innerHTML = `
+                <p>Annual Income: ₱${income.toFixed(2)}</p>
+                <p>Tax Rate: ${taxRate}%</p>
+                <p>Tax Amount: ₱${tax.toFixed(2)}</p>
+                <p>Net Income: ₱${netIncome.toFixed(2)}</p>
+            `;
+    });
+  </script>
+</body>
+
+</html>
